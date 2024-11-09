@@ -57,7 +57,7 @@ const ReactWindowRow = ({ data, style, index }: ReactWindowRowProps) => {
             data.setLoading(true);
             let prompt = "Explain the following log: \n";
             let content = data.logs[index];
-            if (data.logs.length <= 15) {
+            if (data.logs.length <= 15000) {
               // Lazy hard code way to change prompt
               prompt = "Is there anything suspicious on the following logs: \n";
               content = data.logs.join("\n");
@@ -70,6 +70,15 @@ const ReactWindowRow = ({ data, style, index }: ReactWindowRowProps) => {
                   "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
+                  system_instruction: {
+                    parts: { text: "The answer should summarize suspicious and non-suspicious activities (if any)" },
+                  },
+                  safetySettings: [
+                    {
+                      category: "HARM_CATEGORY_DANGEROUS_CONTENT",
+                      threshold: "BLOCK_NONE",
+                    },
+                  ],
                   contents: [
                     {
                       parts: [
