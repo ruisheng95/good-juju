@@ -135,9 +135,17 @@ const Home = () => {
                   });
               }}
             >
-              <MenuItem value={"sshd_sample.txt"}>[SSHD] Full Logs (2000 lines)</MenuItem>
+              <MenuItem value={"sshd_sample.txt"}>
+                [SSHD] Full Logs (2000 lines)
+              </MenuItem>
               <MenuItem value={"mix_good_bad_sshd_log.txt"}>
                 [SSHD] Mixed Good Bad Logs (12 lines)
+              </MenuItem>
+              <MenuItem value={"Windows_2k.log"}>
+                [WIN] Windows Logs (2000 lines)
+              </MenuItem>
+              <MenuItem value={"Thunderbird_2k.log"}>
+                [THU] Thunderbird Logs (2000 lines)
               </MenuItem>
             </Select>
           </FormControl>
@@ -175,7 +183,7 @@ const Home = () => {
                     body: JSON.stringify({
                       system_instruction: {
                         parts: {
-                          text: "The answer should summarize suspicious and non-suspicious activities (if any)",
+                          text: "The answer should summarize suspicious and non-suspicious activities (if any). Please explain it on a scale of 1 to 10",
                         },
                       },
                       safetySettings: [
@@ -191,8 +199,8 @@ const Home = () => {
                               text: `${prompt} ${content}`,
                             },
                             {
-                              text: "\nFinally, provide a summary on the incident with actionable next steps."
-                            }
+                              text: "\nFinally, provide a summary on the incident with actionable next steps.",
+                            },
                           ],
                         },
                       ],
